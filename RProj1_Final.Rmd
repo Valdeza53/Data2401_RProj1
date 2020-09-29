@@ -1,0 +1,97 @@
+---
+title: "R Project 1 - Hello R"
+author: "Alana Valdez"
+date: "9/16/2020"
+output: 
+  html_document: 
+    fig_width: 10
+    fig_height: 9
+    highlight: espresso
+    theme: cerulean
+---
+
+### Load packages
+
+```{r load-packages, message=FALSE}
+library(tidyverse) 
+library(datasauRus)
+```
+
+
+### Exercise 1
+
+#information based on ? datasauRus
+/
+1846 rows
+3 columns
+variables = "dataset, x, y"
+
+### Exercise 2
+
+#plot the data in the dino dataset
+```{r plot-dino, fig.height=3, fig.width=6}
+dino_data <- datasaurus_dozen %>%
+  filter(dataset == "dino")
+ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
+  geom_point()
+```
+
+#calculate the correlation between `x` and `y` in this dataset:
+```{r cor-dino}
+dino_data %>%
+  summarize(r = cor(x, y))
+```
+
+### Exercise 3
+
+#plot the data in the away dataset
+```{r plot-away, fig.height=3, fig.width=6}
+dino_data <- datasaurus_dozen %>%
+  filter(dataset == "away")
+ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
+  geom_point()
+```
+
+
+#Away is about four ten-thousandths larger than dino
+ 
+#calculate the correlation between `x` and `y` in away  dataset:
+```{r cor-away}
+dino_data %>%
+  summarize(r = cor(x, y))
+```
+### Exercise 4
+
+
+#plot the data in the bullseye dataset
+```{r plot-bullseye, fig.height=3, fig.width=6}
+dino_data <- datasaurus_dozen %>%
+  filter(dataset == "bullseye")
+ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
+  geom_point()
+```
+#calculate the correlation between `x` and `y` in bullseye dataset:
+```{r cor-bullseye}
+dino_data %>%
+  summarize(r = cor(x, y))
+```
+
+### Exercise 5
+#plot of all datasets
+```{r plot-dozen, fig.height=3, fig.width=6}
+ggplot(datasaurus_dozen, aes(x = x, y = y, color =dataset)) +
+  geom_point()+
+  facet_wrap(~dataset, ncol = 3) +
+  theme(legend.position = "none")
+```
+
+#calculate the correlation between `x` and `y` in all datasets
+```{r cor-dozen}
+datasaurus_dozen %>%
+  group_by(dataset) %>%
+  summarize(r = cor(x, y)) %>%
+  print(13)
+```
+
+
+
